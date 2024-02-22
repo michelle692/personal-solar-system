@@ -4,10 +4,9 @@ import { useFrame } from '@react-three/fiber';
 import { Vector2 } from 'three';
 import * as THREE from 'three';
 
-function Planet({ scale, position, color, sound }) {
+function Planet({ scale, position, sound }) {
   const mesh = useRef();
   const analyzer = useRef();
-  const [currentColor, setCurrentColor] = useState(color);
   const [play, setPlay] = useState(false);
 
   const uniforms = useMemo(() => {
@@ -60,15 +59,15 @@ function Planet({ scale, position, color, sound }) {
   }
 
   const handleClick = () => {
-    const randomColor =  '#' + Math.floor(Math.random() * 16777215).toString(16);
-    setCurrentColor(randomColor);
+    // const randomColor =  '#' + Math.floor(Math.random() * 16777215).toString(16);
+    // setCurrentColor(randomColor);
     playMusic();
   }
 
   
   return (
-    <mesh onClick={handleClick} ref ={mesh} scale={scale} position={position}> 
-      <icosahedronGeometry args={[1, 30]} ref={analyzer} />
+    <mesh onClick={handleClick} ref={mesh} position={position}> 
+      <icosahedronGeometry args={[1, 30]} ref={analyzer} scale={scale}/>
       <shaderMaterial fragmentShader={fragmentShader} vertexShader={vertexShader} uniforms={uniforms} wireframe />
     </mesh>
   );
