@@ -5,27 +5,20 @@ import Planet from './components/planet';
 import { OrbitControls, PositionalAudio } from '@react-three/drei';
 
 function App() {
-  // const [play, setPlay] = useState(false);
 
   const sound = useRef();
-
-  // function playMusic() {
-  //   if (play) {
-  //     sound.current.pause();
-  //   } else {
-  //     sound.current.play();
-  //   }
-  //   setPlay(!play);
-  // }
+  const sound2 = useRef();
   
   return (
     <div className="App">
        <Canvas>
         <ambientLight intensity={Math.PI / 2} />
         <pointLight position={[10, 10, 10]} decay={0} intensity={Math.PI} />
-        <PositionalAudio url='drive.mp3' distance={10} loop ref={sound} autoplay={true}/>
+        <PositionalAudio url='virginsuicides.mp3' distance={10} loop ref={sound} autoplay={false}/>
+        <PositionalAudio url='drive.mp3' distance={10} loop ref={sound2} autoplay={false} />
         <OrbitControls autoRotate={true} />
-        <Planet color='hotpink' sound={sound}/>
+        <Planet scale={0.2} position={[1.5, 0, 0]} color='hotpink' sound={sound} />
+        <Planet scale={0.5} position={[-1.5, 0, 0]} color='blue' sound={sound2} />
       </Canvas>
     </div>
   );
