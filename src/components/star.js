@@ -4,7 +4,7 @@ import { useFrame } from '@react-three/fiber';
 import { Vector2 } from 'three';
 import * as THREE from 'three';
 
-function Planet({ scale, position, sound }) {
+function Star({ scale, sound }) {
   const mesh = useRef();
   const analyzer = useRef();
   const [play, setPlay] = useState(false);
@@ -59,18 +59,16 @@ function Planet({ scale, position, sound }) {
   }
 
   const handleClick = () => {
-    // const randomColor =  '#' + Math.floor(Math.random() * 16777215).toString(16);
-    // setCurrentColor(randomColor);
     playMusic();
   }
 
   
   return (
-    <mesh onClick={handleClick} ref={mesh} position={position}> 
-      <icosahedronGeometry args={[0.3, 30]} ref={analyzer} scale={scale}/>
+    <mesh onClick={handleClick} ref={mesh}> 
+      <torusKnotGeometry args={[1, 0.2, 50, 16]} ref={analyzer} scale={scale}/>
       <shaderMaterial fragmentShader={fragmentShader} vertexShader={vertexShader} uniforms={uniforms} wireframe />
     </mesh>
   );
 }
 
-export default Planet;
+export default Star;
