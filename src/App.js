@@ -22,9 +22,16 @@ function App() {
         <PositionalAudio url='bullettrain.mp3' distance={2} loop ref={sound3} autoplay={false} />
         <OrbitControls autoRotate={true} />
         <Star scale={1} sound={sound}/>
-        <Ecliptic xRadius={2.5}/>
-        <Planet scale={0.1} position={[2.5, 0, 0]} sound={sound2} />
-        <Planet scale={0.5} position={[-2.5, 0, 0]} sound={sound3} />
+
+        {/* first ring */}
+        <Ecliptic xRadius={1.7}/>
+        <Planet scale={0.1} position={[1.5, 0.8, 0]} sound={sound2} />
+        <Planet scale={0.5} position={[-1.5, -0.8, 0]} sound={sound3} />
+
+        {/* second ring */}
+        <Ecliptic xRadius={2.8} zRadius={1.2}/>
+        {/* <Planet scale={0.1} position={[2.3, 1.3, 0]} sound={sound2} />
+        <Planet scale={0.5} position={[-2.3, -1.3, 0]} sound={sound2} /> */}
       </Canvas>
     </div>
   );
