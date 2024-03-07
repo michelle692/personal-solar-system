@@ -1,74 +1,43 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react'
-import { fragmentShader, vertexShader } from '../shaders/planetShader';
+import React, { useState, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber';
-import { Vector2 } from 'three';
 import * as THREE from 'three';
+import { usePromptContext } from '../PromptContext';
+import { fragmentShader, vertexShader } from '../shaders/gradientShader';
 
-function Planet({ scale, position, sound }) {
+function Planet({ scale, position, color1, color2, index }) {
+
   const mesh = useRef();
-  const analyzer = useRef();
-  const [play, setPlay] = useState(false);
+  const { movie, setPlanet, togglePlay } = usePromptContext();
+  
+  const colors = useMemo(() => ({
+    u_color1: { value: new THREE.Color(color1) },
+    u_color2: { value: new THREE.Color('#ffffff') },
+    u_color3: { value: new THREE.Color(color2) },
+  }), [color1, color2]);
 
-  const uniforms = useMemo(() => {
-    return (
-      {
-        u_resolution: {
-          type: 'v2',
-          value: new Vector2(window.innerWidth, window.innerHeight)
-        },
-        u_time: {
-            type: 'f',
-            value: 0.0
-        },
-        u_frequency: {
-            type: 'f',
-            value: 0.0
-        }
-      }
-    )
-  }, []);
+  useFrame(() => {
+    mesh.current.rotation.x += 0.005;
+    mesh.current.rotation.y += 0.003;
+    mesh.current.rotation.z += 0.005;
+  });
 
-  useEffect(() => {
-    analyzer.current = new THREE.AudioAnalyser(sound.current, 32);
-
-  }, [sound])
-
-  useFrame((state) => {
-    const { clock } = state;
-    mesh.current.material.uniforms.u_time.value = clock.getElapsedTime();
-
-    mesh.current.rotation.x = clock.getElapsedTime() * 0.1;
-    mesh.current.rotation.z = clock.getElapsedTime() * 0.1;
-
-    if (analyzer.current.data)
-        mesh.current.material.uniforms.u_time.value = clock.getElapsedTime();
-    mesh.current.material.uniforms.u_frequency.value = analyzer.current.getAverageFrequency();
-    mesh.current.scale.x = 0.75 + analyzer.current.getAverageFrequency() / 1000;
-    mesh.current.scale.y = 0.75 + analyzer.current.getAverageFrequency() / 1000;
-    mesh.current.scale.z = 0.75 + analyzer.current.getAverageFrequency() / 1000;
-
-  })
-
-  function playMusic() {
-    if (play) {
-      sound.current.pause();
-    } else {
-      sound.current.play();
-    }
-    setPlay(!play);
-  }
 
   const handleClick = () => {
-    // const randomColor =  '#' + Math.floor(Math.random() * 16777215).toString(16);
-    // setCurrentColor(randomColor);
-    playMusic();
+    setPlanet(index);
+    togglePlay();
   }
 
-  
+  console.log("Selected Movie: ", movie);
+
   return (
-    <mesh onClick={handleClick} ref={mesh} position={position}> 
-      <icosahedronGeometry args={[0.3, 30]} ref={analyzer} scale={scale}/>
-      <shaderMaterial fragmentShader={fragmentShader} vertexShader={vertexShader} uniforms={uniforms} wireframe />
+    <mesh ref={mesh} onClick={handleClick} position={position} scale={scale}> 
+      <icosahedronGeometry args={[0.3, 5]} />
+      <shaderMaterial
+        vertexShader={vertexShader}
+        fragmentShader={fragmentShader}
+        // wireframe
+        uniforms={colors}
+      />
     </mesh>
   );
 }

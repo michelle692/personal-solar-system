@@ -15,6 +15,8 @@ function Ecliptic({ xRadius = 1, zRadius = 1, tiltAngle = 35 }) {
   }
   points.push(points[0]);
 
+  // console.log("xradius:", xRadius, "here are my points: ", points);
+
   const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
   return (
     <line geometry={lineGeometry}>

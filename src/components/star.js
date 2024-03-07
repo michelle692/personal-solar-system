@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import { fragmentShader, vertexShader } from '../shaders/planetShader';
 import { useFrame } from '@react-three/fiber';
 import { Vector2 } from 'three';
 import * as THREE from 'three';
+import { usePromptContext } from '../PromptContext';
 
 function Star({ scale, sound }) {
+
+  const { play } = usePromptContext();
   const mesh = useRef();
   const analyzer = useRef();
-  const [play, setPlay] = useState(false);
 
   const uniforms = useMemo(() => {
     return (
@@ -31,7 +33,21 @@ function Star({ scale, sound }) {
   useEffect(() => {
     analyzer.current = new THREE.AudioAnalyser(sound.current, 32);
 
-  }, [sound])
+    function handlePlayChange() {
+      if (play) {
+        sound.current.play();
+      } else {
+        sound.current.pause();
+      }
+    }
+
+    handlePlayChange();
+
+    // return () => {
+    //   sound.current.pause();
+    // }
+
+  }, [play, sound])
 
   useFrame((state) => {
     const { clock } = state;
@@ -49,23 +65,22 @@ function Star({ scale, sound }) {
 
   })
 
-  function playMusic() {
-    if (play) {
-      sound.current.pause();
-    } else {
-      sound.current.play();
-    }
-    setPlay(!play);
-  }
+  // function playMusic() {
+  //   if (play) {
+  //     sound.current.play();
+  //   } else {
+  //     sound.current.pause();
+  //   }
+  // }
 
-  const handleClick = () => {
-    playMusic();
-  }
+  // const handleClick = () => {
+  //   playMusic();
+  // }
 
   
   return (
-    <mesh onClick={handleClick} ref={mesh}> 
-      <torusKnotGeometry args={[1, 0.2, 50, 16]} ref={analyzer} scale={scale}/>
+    <mesh ref={mesh}> 
+      <icosahedronGeometry args={[1.3, 30]} scale={scale}/>
       <shaderMaterial fragmentShader={fragmentShader} vertexShader={vertexShader} uniforms={uniforms} wireframe />
     </mesh>
   );
