@@ -14,10 +14,6 @@ function Home() {
 
   const { movie, selected, toggleRing } = usePromptContext();
   const sound = useRef();
-  const [selectedMonth, setSelectedMonth] = useState('JUL 2023s');
-  const months = [
-    'JUL 2023', 'AUG 2023', 'SEP 2023', 'OCT 2023', 'NOV 2023', 'DEC 2023', 'JAN 2024', 'FEB 2024'
-  ];
 
   const infoOptions = useMemo(() => {
     return {
@@ -76,12 +72,12 @@ function Home() {
 
       </Canvas>
 
-      {/* Left months panel. */}
+      {/* Left months panel */}
       {planetsConfig.map((config, index) => (
         <Text
           key={index}
           text={config.month}
-          positionTop={30 + index * 50} // Adjust the vertical spacing as needed
+          positionTop={30 + index * 50}
           onClick={() => toggleRing(index)}
           isSelected={selected[index]}
         />
