@@ -25,8 +25,13 @@ function Home() {
         <ambientLight intensity={Math.PI / 2} />
         <pointLight position={[10, 10, 10]} decay={0} intensity={Math.PI} />
         <PositionalAudio url={movie.song} distance={10} loop ref={sound} autoplay={false}/>
-        <OrbitControls autoRotate={false} />
+        <OrbitControls autoRotate={false} autoRotateSpeed={0.2} />
         <Star scale={1} sound={sound}/>
+
+        <mesh position={[1.5, 0.8, 0]}>
+          <sphereGeometry args={[0.13, 20, 10]} />
+          <meshStandardMaterial color={'#41acfd'}/>
+        </mesh>
 
         {/* JULY - first ring */}
         <Ecliptic xRadius={1.7}/>
