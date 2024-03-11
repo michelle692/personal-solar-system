@@ -23,6 +23,10 @@
   line-height: 1.5; /* Set line height to 1.5 */
 }
 
+.additional-info ul li {
+  margin-bottom: 2%; /* Adjust margin-bottom as needed */
+}
+
 .additional-info img {
   width: 70%; /* Set the width to 50% */
   display: block; /* Make the image a block element */
