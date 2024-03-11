@@ -58,7 +58,7 @@ const About = () => {
         </p>
         <img src="./images/iteration3.png" alt="Iteration 3" />
         <p>
-          I continued to edit different features until the final result which is what you see on the main page.
+          I continued to edit different features and adjust the visuals until the final result which is what you see on the main page.
         </p>
         <div style={{ marginBottom: '20%' }}></div>
       </div>
