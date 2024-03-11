@@ -19,15 +19,36 @@ function Home() {
     'JUL 2023', 'AUG 2023', 'SEP 2023', 'OCT 2023', 'NOV 2023', 'DEC 2023', 'JAN 2024', 'FEB 2024'
   ];
 
-  const options = useMemo(() => {
+  const infoOptions = useMemo(() => {
+    return {
+      title: {value: 'not selected'},
+      director: {value: 'not selected', readonly: true},
+      song: {value: 'not selected', readonly: true},
+      artist: {value: 'not selected', readonly: true},
+      myRating: {value: 'not selected', readonly: true},
+      rottenTomatoes: {value: 'not selected', readonly: true},
+    }
+  })
+
+  const directorOptions = useMemo(() => {
     return {
       directorView: {value: false},
+      blue: {value: 'male', disabled: true},
+      pink: {value: 'female', disabled: true},
+      mix: {value: 'both', disabled: true},
+    }
+  })
+
+  const settingOptions = useMemo(() => {
+    return {
       rotate: {value: false},
       rotateSpeed: {value: 0.2, min: 0.1, max: 0.5, step: 0.1},
     }
   })
 
-  const settings = useControls('Settings', options)
+  const info = useControls('Information (please do not edit)', infoOptions)
+  const dirView = useControls('Director Demographic', directorOptions)
+  const settings = useControls('Settings', settingOptions)
   
   return (
     <div className="App">
@@ -50,7 +71,7 @@ function Home() {
           selected[index] && <Ring
             key={index}
             config={config}
-            dirView={settings.directorView} />
+            dirView={dirView.directorView} />
         ))}
 
       </Canvas>

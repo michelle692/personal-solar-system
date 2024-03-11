@@ -15,3 +15,7 @@ body {
   color: gray; /* Default color */
   cursor: pointer; /* Default cursor */
 }
+
+#leva__root > * {
+  width: 400px;
+}
