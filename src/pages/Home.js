@@ -1,54 +1,57 @@
 import '../App.css';
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import Star from '../components/star';
 import Core from '../components/core';
 import Ring from '../components/ring';
-import Text from '../components/text';
+import Info from '../components/info';
 import planetsConfig from '../data/config';
 import { OrbitControls, PositionalAudio, OrthographicCamera } from '@react-three/drei';
 import { useControls } from 'leva'
-import { usePromptContext } from '../PromptContext';
+import { usePromptContext } from '../ContextProvider';
 
 function Home() {
 
-  const { movie, selected, toggleRing } = usePromptContext();
-  const sound = useRef();
+  const { sound, selected, toggleRing, planet } = usePromptContext();
+  const isPlaying = sound.current && sound.current.isPlaying;
+  console.log("PLaying", isPlaying);
 
-  const infoOptions = useMemo(() => {
+  const monthOptions = useMemo(() => {
     return {
-      title: {value: 'not selected'},
-      director: {value: 'not selected', readonly: true},
-      song: {value: 'not selected', readonly: true},
-      artist: {value: 'not selected', readonly: true},
-      myRating: {value: 'not selected', readonly: true},
-      rottenTomatoes: {value: 'not selected', readonly: true},
+      JUL2023: { value: true, onChange: (v) => { toggleRing(0); } },
+      AUG2023: { value: true, onChange: (v) => { toggleRing(1); } },
+      SEP2023: { value: false, onChange: (v) => { toggleRing(2); } },
+      OCT2023: { value: false, onChange: (v) => { toggleRing(3); } },
+      NOV2023: { value: false, onChange: (v) => { toggleRing(4); } },
+      DEC2023: { value: false, onChange: (v) => { toggleRing(5); } },
+      JAN2024: { value: false, onChange: (v) => { toggleRing(6); } },
+      FEB2024: { value: false, onChange: (v) => { toggleRing(7); } },
     }
   })
 
   const directorOptions = useMemo(() => {
     return {
-      directorView: {value: false},
-      blue: {value: 'male', disabled: true},
-      pink: {value: 'female', disabled: true},
-      mix: {value: 'both', disabled: true},
+      directorView: { value: false },
+      blue: { value: 'male', disabled: true },
+      pink: { value: 'female', disabled: true },
+      mix: { value: 'both', disabled: true },
     }
   })
 
   const settingOptions = useMemo(() => {
     return {
-      rotate: {value: false},
-      rotateSpeed: {value: 0.2, min: 0.1, max: 0.5, step: 0.1},
+      rotate: { value: false },
+      rotateSpeed: { value: 0.2, min: 0.1, max: 0.5, step: 0.1 },
     }
   })
 
-  const info = useControls('Information (please do not edit)', infoOptions)
+  const month = useControls('Month', monthOptions)
   const dirView = useControls('Director Demographic', directorOptions)
   const settings = useControls('Settings', settingOptions)
-  
+
   return (
     <div className="App">
-       <Canvas>
+      <Canvas>
         <OrthographicCamera
           makeDefault
           zoom={100}
@@ -58,9 +61,9 @@ function Home() {
         />
         <ambientLight intensity={Math.PI / 2} />
         <pointLight position={[10, 10, 10]} decay={0} intensity={Math.PI} />
-        <PositionalAudio url={movie.song} distance={10} loop ref={sound} autoplay={false}/>
+        <PositionalAudio url={planet.songUrl} distance={10} loop ref={sound} autoplay={true} />
         <OrbitControls autoRotate={settings.rotate} autoRotateSpeed={settings.rotateSpeed} />
-        <Star scale={1} sound={sound}/>
+        <Star scale={1} sound={sound} />
         <Core />
 
         {planetsConfig.map((config, index) => (
@@ -72,17 +75,7 @@ function Home() {
 
       </Canvas>
 
-      {/* Left months panel */}
-      {planetsConfig.map((config, index) => (
-        <Text
-          key={index}
-          text={config.month}
-          positionTop={30 + index * 50}
-          onClick={() => toggleRing(index)}
-          isSelected={selected[index]}
-        />
-      ))}
-
+      <Info planet={planet} isPlaying={isPlaying} />
     </div>
   );
 }

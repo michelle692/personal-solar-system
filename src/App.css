@@ -1,11 +1,13 @@
 body {
   background-color: #212121;
 }
+
 .App {
   width: 100vw;
   height: 100vh;
   background-color: #212121;
 }
+
 .clicked {
   color: white; /* Change the color to gray when clicked */
   cursor: default; /* Optionally, change the cursor to default when clicked */
@@ -17,5 +19,5 @@ body {
 }
 
 #leva__root > * {
-  width: 400px;
+  width: 290px;
 }

@@ -3,11 +3,12 @@ import { fragmentShader, vertexShader } from '../shaders/planetShader';
 import { useFrame } from '@react-three/fiber';
 import { Vector2 } from 'three';
 import * as THREE from 'three';
-import { usePromptContext } from '../PromptContext';
+import { usePromptContext } from '../ContextProvider';
 
-function Star({ scale, sound }) {
+function Star({ scale  }) {
 
-  const { play } = usePromptContext();
+  const { sound } = usePromptContext();
+
   const mesh = useRef();
   const analyzer = useRef();
 
@@ -19,35 +20,23 @@ function Star({ scale, sound }) {
           value: new Vector2(window.innerWidth, window.innerHeight)
         },
         u_time: {
-            type: 'f',
-            value: 0.0
+          type: 'f',
+          value: 0.0
         },
         u_frequency: {
-            type: 'f',
-            value: 0.0
+          type: 'f',
+          value: 0.0
         }
       }
     )
   }, []);
 
+
   useEffect(() => {
     analyzer.current = new THREE.AudioAnalyser(sound.current, 32);
 
-    function handlePlayChange() {
-      if (play) {
-        sound.current.play();
-      } else {
-        sound.current.pause();
-      }
-    }
-
-    handlePlayChange();
-
-    // return () => {
-    //   sound.current.pause();
-    // }
-
-  }, [play, sound])
+  }, [analyzer, sound])
+  
 
   useFrame((state) => {
     const { clock } = state;
@@ -65,21 +54,8 @@ function Star({ scale, sound }) {
 
   })
 
-  // function playMusic() {
-  //   if (play) {
-  //     sound.current.play();
-  //   } else {
-  //     sound.current.pause();
-  //   }
-  // }
-
-  // const handleClick = () => {
-  //   playMusic();
-  // }
-
-  
   return (
-    <mesh ref={mesh}> 
+    <mesh ref={mesh} > 
       <icosahedronGeometry args={[1.3, 20]} scale={scale}/>
       <shaderMaterial fragmentShader={fragmentShader} vertexShader={vertexShader} uniforms={uniforms} wireframe />
     </mesh>

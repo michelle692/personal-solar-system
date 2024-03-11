@@ -16,13 +16,12 @@ const About = () => {
         <p>I wanted to visualize all the movies and mini tv series I watched in the past eight months and decided to display it as a solar system. I used React Three Fiber to build the website, so the solar system components are all 3D!
         </p>
         <ul>
-          <li>Orbit controls are enabled, so you can zoom in and out, rotate in any direction, and pan the camera around the scene. Each ring represents a month which is listed out on the left side of the screen. </li>
+          <li>Orbit controls are enabled, so you can zoom in and out, rotate in any direction, and pan the camera around the scene. Each ring represents a month which is listed out on the right panel of the screen. </li>
           <li>You can click a month to view the movies/series I watched during that month, and unclick to make that month disappear. </li>
-          <li>Clicking a month reveals the movies/series watched, clicking again hides them.</li>
-          <li>Each movie/series is represented by a planet, and the colors represent the movie’s/series’ color palette. </li>
+          <li>Each movie/series is represented by a planet, and the colors represent the movie's/series' color palette. </li>
           <li>The size of each planet represents my rating of that particular movie/series, which is determined by several factors including the storytelling/plot, characters, memorability, and the soundtrack. </li>
           <li>You can listen to my favorite song from the soundtrack by clicking on a movie planet. </li>
-          <li>Additional details about the movie/series and audio can be found on the GUI panel on the right side. </li>
+          <li>Additional details about the movie/series and audio can be found on the top left on the screen. </li>
           <li>Lastly, if you click on the director view toggle in the GUI, you can watch an animation I made to show which movies/series were directed by a male and which were directed by a female. </li>
         </ul>
         <div style={{ marginBottom: '8%' }}></div>
@@ -50,8 +49,9 @@ const About = () => {
         </p>
         <img src="./images/process3.png" alt="Process 3" />
         <p>
-          Additionally, the Data Feminism paper inspired me to “examine power” in the film space and I decided to look up the directors of the movies and tv shows I watched to see if they were directed by a male or female. I was quite surprised to see that many of the directors were male since many films that I watched were based on a woman’s perspective or had a female lead. In the Data Feminism paper, it mentioned one example in Chapter 3 where there was a data performance in a museum called A Sort of Joy. There was a group of individuals that started naming the artists who had their artwork in the museum in alphabetical order. Their goal was to show how little female artists in the museum there were compared to male artists. At first, the audience didn’t have context to what was happening but once they understood, they started anticipating when the next female artist would be named. Ultimately, the performance was able to evoke a certain type of emotion in the audience where they can feel the gender difference rather than just seeing it. I wanted to include some element of this idea in my visualization, so instead of just showing all the male and female directors at once, I wanted to have an animation that would change the color of the planet to either blue or pink for male or female, and have each one show up one by one. 
+          Additionally, the Data Feminism paper inspired me to “examine power” in the film space and I decided to look up the directors of the movies and tv shows I watched to see if they were directed by a male or female. I was quite surprised to see that many of the directors were male since many films that I watched were based on a woman’s perspective or had a female lead. However, after some thought it did make sense, as some of those films had elements that were more tailored to the male gaze. In the first chapter of the paper, it discusses the importance of understanding power and privilege and encouraging others to understand oppression when they’re in a position of privilege. I think this is especially important in the film industry, not only because there are so few women in the field, but also because films have an impact on their audience and their perception. Having directors from a wide variety of demographics and backgrounds can offer novel ideas and accurate perspectives on certain topics. That being said, collecting and examining this data has made me want to seek out more movies and shows that were directed by individuals of different demographics and backgrounds. For my visual I knew I wanted to incorporate this information and I thought the best way might be to have a secondary view that would display the director demographic. 
         </p>
+        <img src="./images/process4.png" alt="Process 4" />
         <p>
           For my implementation, I knew I wanted to use React Three Fiber since I’ve had experience making websites with this framework. It essentially combines the React.js framework with the Three.js library, so that you can use 3D components in React. I’ve also had experience implementing and using shaders in GLSL, so I used that to create the center audio visualization. I made the vertex shader displace the vertices of my geometry based on the audio frequencies and the fragment shader just makes the geometry white. Below is one of the first iterations with some placeholder data.
         </p>
@@ -67,6 +67,7 @@ const About = () => {
         <p>
           I continued to edit different features and adjust the visuals until the final result which is what you see on the main page.
         </p>
+        <img src="./images/final.png" alt="Final Iteration" />
         <button onClick={goToHomePage}>Go to Visualization  &rarr;</button>
         <div style={{ marginBottom: '20%' }}></div>
       </div>

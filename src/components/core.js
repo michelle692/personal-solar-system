@@ -1,14 +1,14 @@
 import React, { useState, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber';
-import { usePromptContext } from '../PromptContext';
+import { usePromptContext } from '../ContextProvider';
 import { GradientTexture, sphereGeometry } from '@react-three/drei';
 
 function Core() {
 
   const mesh = useRef();
-  const { movie } = usePromptContext();
+  const { planet } = usePromptContext();
 
-  const colorPalette = movie.colorPalette;
+  const colorPalette = planet.colors;
 
   useFrame(() => {
     

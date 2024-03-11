@@ -1,13 +1,11 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
-import { usePromptContext } from '../PromptContext';
-import infoDatabase from '../data/info';
-import { GradientTexture, sphereGeometry } from '@react-three/drei';
+import { usePromptContext } from '../ContextProvider';
+import { GradientTexture } from '@react-three/drei';
 
 function Planet({ planet, dirView }) {
 
-  const { fadeIn, togglePlay, setSource } = usePromptContext();
+  const { fadeIn, togglePlay, setPlanet } = usePromptContext();
   const mesh = useRef();
 
   const color = dirView ? planet.directorColor : planet.colors;
@@ -23,8 +21,8 @@ function Planet({ planet, dirView }) {
   }, [fadeIn]);
 
   const handleClick = () => {
-    togglePlay();
-    setSource(planet.songUrl)
+    setPlanet(planet)
+    togglePlay()
   }
 
   return (
