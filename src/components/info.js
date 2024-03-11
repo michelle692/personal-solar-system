@@ -1,7 +1,6 @@
 import React from 'react';
 
 function Info({ planet, isPlaying }) {
-  console.log("info: ", isPlaying)
   return (
     <div
       style={{

@@ -7,7 +7,7 @@ function Ring({ config, dirView, parent }) {
       <Ecliptic
         xRadius={config.eliptic.xRadius}
         zRadius={config.eliptic.zRadius}
-        selected={true}
+        selected={false}
       />
       {config.planets.map((planet, index) => (
         <Planet

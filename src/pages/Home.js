@@ -14,7 +14,6 @@ function Home() {
 
   const { sound, selected, toggleRing, planet } = usePromptContext();
   const isPlaying = sound.current && sound.current.isPlaying;
-  console.log("PLaying", isPlaying);
 
   const monthOptions = useMemo(() => {
     return {
