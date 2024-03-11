@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import Planet from '../components/planet';
 import Star from '../components/star';
+import Core from '../components/core';
 import Ecliptic from '../components/ecliptic';
 import { OrbitControls, PositionalAudio, OrthographicCamera } from '@react-three/drei';
 import { usePromptContext } from '../PromptContext';
@@ -27,6 +28,7 @@ function Home() {
         <PositionalAudio url={movie.song} distance={10} loop ref={sound} autoplay={false}/>
         <OrbitControls autoRotate={false} autoRotateSpeed={0.2} />
         <Star scale={1} sound={sound}/>
+        <Core />
 
         <mesh position={[1.5, 0.8, 0]}>
           <sphereGeometry args={[0.13, 20, 10]} />

@@ -1,7 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../css/About.css';
 
 const About = () => {
+  const navigate = useNavigate();
+
+  const goToHomePage = () => {
+    navigate('/');
+  }
+
   return (
     <div className="about-container">
       <h1>About The Visualization</h1>
@@ -60,6 +67,7 @@ const About = () => {
         <p>
           I continued to edit different features and adjust the visuals until the final result which is what you see on the main page.
         </p>
+        <button onClick={goToHomePage}>Go to Visualization  &rarr;</button>
         <div style={{ marginBottom: '20%' }}></div>
       </div>
     </div>

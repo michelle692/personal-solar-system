@@ -80,7 +80,7 @@ function Star({ scale, sound }) {
   
   return (
     <mesh ref={mesh}> 
-      <icosahedronGeometry args={[1.3, 30]} scale={scale}/>
+      <icosahedronGeometry args={[1.3, 20]} scale={scale}/>
       <shaderMaterial fragmentShader={fragmentShader} vertexShader={vertexShader} uniforms={uniforms} wireframe />
     </mesh>
   );

@@ -5,9 +5,15 @@ const movies = Object.keys(infoDatabase);
 
 const getMovie = (index) => {
   const movie = movies[index];
+  const directorName = infoDatabase[movie].directorName;
   const song = infoDatabase[movie].song;
-  const memorability = infoDatabase[movie].memorability;
-  return { name: movie, song: song, memorability: memorability }
+  const songTitle = infoDatabase[movie].songTitle;
+  const songArtist = infoDatabase[movie].songArtist;
+  const myRating = infoDatabase[movie].myRating;
+  const rottenTomatoes = infoDatabase[movie].rottenTomatoes;
+  const directorColor = infoDatabase[movie].directorColor;
+  const colorPalette = infoDatabase[movie].colorPalette;
+  return { name: movie, directorName: directorName, song: song, songTitle: songTitle, songArtist: songArtist, myRating: myRating, rottenTomatoes: rottenTomatoes, directorColor: directorColor, colorPalette: colorPalette}
 }
 
 const PromptContext = createContext();
@@ -30,7 +36,7 @@ export const PromptProvider = ({ children }) => {
   }
 
   return (
-    <PromptContext.Provider value={{ movie, setPlanet, play, togglePlay }} >
+    <PromptContext.Provider value={{ movies, movie, setPlanet, play, togglePlay }} >
       { children }
     </PromptContext.Provider>
   );
