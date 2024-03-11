@@ -1,19 +1,16 @@
-import React, { useState, useMemo, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { usePromptContext } from '../PromptContext';
-import { fragmentShader, vertexShader } from '../shaders/gradientShader';
+import infoDatabase from '../data/info';
+import { GradientTexture, sphereGeometry } from '@react-three/drei';
 
-function Planet({ scale, position, color1, color2, index }) {
+function Planet({ planet, dirView }) {
 
+  const { fadeIn, togglePlay, setSource } = usePromptContext();
   const mesh = useRef();
-  const { movie, setPlanet, togglePlay } = usePromptContext();
-  
-  const colors = useMemo(() => ({
-    u_color1: { value: new THREE.Color(color1) },
-    u_color2: { value: new THREE.Color('#ffffff') },
-    u_color3: { value: new THREE.Color(color2) },
-  }), [color1, color2]);
+
+  const color = dirView ? planet.directorColor : planet.colors;
 
   useFrame(() => {
     mesh.current.rotation.x += 0.005;
@@ -21,23 +18,21 @@ function Planet({ scale, position, color1, color2, index }) {
     mesh.current.rotation.z += 0.005;
   });
 
+  useEffect(() => {
+    fadeIn(mesh.current.material, 750, () => { });
+  }, [fadeIn]);
 
   const handleClick = () => {
-    setPlanet(index);
     togglePlay();
+    setSource(planet.songUrl)
   }
 
-  console.log("Selected Movie: ", movie);
-
   return (
-    <mesh ref={mesh} onClick={handleClick} position={position} scale={scale}> 
-      <icosahedronGeometry args={[0.3, 5]} />
-      <shaderMaterial
-        vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
-        // wireframe
-        uniforms={colors}
-      />
+    <mesh ref={mesh} onClick={handleClick} position={planet.position} scale={0.25}>
+      <sphereGeometry args={[planet.myRating, 20]} />
+      <meshBasicMaterial transparent opacity={0} >
+        <GradientTexture stops={[0, 1]} colors={color} size={2000} />
+      </meshBasicMaterial>
     </mesh>
   );
 }

@@ -6,3 +6,12 @@ body {
   height: 100vh;
   background-color: #212121;
 }
+.clicked {
+  color: white; /* Change the color to gray when clicked */
+  cursor: default; /* Optionally, change the cursor to default when clicked */
+}
+
+.unclicked {
+  color: gray; /* Default color */
+  cursor: pointer; /* Default cursor */
+}
