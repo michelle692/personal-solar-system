@@ -2,7 +2,7 @@
 
 Open [https://personal-solar-system.vercel.app/](https://personal-solar-system.vercel.app/) to view the app!
 
-<img src="./public//images/final.png" alt="Final Iteration" />
+<img src="./public/images/final.png" alt="Final Iteration" />
 
  <p>I wanted to visualize all the movies and mini tv series I watched in the past eight months and decided to display it as a solar system. I used React Three Fiber to build the website, so the solar system components are all 3D!
         </p>
