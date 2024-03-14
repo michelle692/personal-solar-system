@@ -1,5 +1,5 @@
 import '../App.css';
-import React, { useMemo, useRef, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
 import Star from '../components/star';
 import Core from '../components/core';
@@ -66,7 +66,7 @@ function Home() {
         <Core />
 
         {planetsConfig.map((config, index) => (
-          selected[index] && <Ring
+          !selected[index] && <Ring
             key={index}
             config={config}
             dirView={dirView.directorView} />
